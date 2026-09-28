@@ -25,3 +25,17 @@
 .lightbox img{min-height:0;flex-shrink:1}
 .form-grid>label{min-width:0}
 .quote-form input,.quote-form select,.quote-form textarea{min-width:0}
+
+/* Carajillos: a dedicated coffee cocktail section. */
+.carajillos{display:grid;grid-template-columns:1fr 1fr;background:#251c17;color:#f8f6f2}
+.carajillos-image{min-width:0;background:#101617}
+.carajillos-image img{width:100%;height:100%;object-fit:contain;max-height:780px}
+.carajillos-copy{padding:clamp(48px,7vw,110px);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:0}
+.carajillos-copy .eyebrow{color:#c5a17d}
+.carajillos h2{font-size:clamp(38px,4.1vw,68px);line-height:1.2;letter-spacing:-.04em;margin:28px 0 24px}
+.carajillos h2 em{color:#c5a17d}
+.carajillos p{max-width:480px;line-height:1.8;color:#ded1c3;font-size:15px}
+.carajillos .button{margin-top:20px;border-color:#c5a17d}
+.carajillos .button:hover{background:#f8f6f2;color:#30251d}
+@media(max-width:800px){.carajillos{grid-template-columns:1fr}.carajillos-image img{max-height:600px}.carajillos-copy{padding:64px 7vw}}
+@media(max-width:560px){.carajillos-copy{padding:60px 24px}.carajillos h2{font-size:42px}}
