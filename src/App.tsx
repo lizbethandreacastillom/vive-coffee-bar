@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Coffee, Instagram, Menu, Pause, Play, X } from 'lucide-react';
 
-const whatsapp = (import.meta.env.VITE_WHATSAPP_NUMBER || '').replace(/\D/g, '');
+const whatsapp = (import.meta.env.VITE_WHATSAPP_NUMBER || '524425837669').replace(/\D/g, '');
 const instagram = import.meta.env.VITE_INSTAGRAM_URL || '';
 const photos = [
   { src: '/images/galeria-barra.jpg', alt: 'Barista de Vive Coffee Bar preparando bebidas durante una celebración', label: 'En el corazón del evento' },
@@ -104,7 +104,7 @@ function QuoteForm() {
       <label>Experiencia <select value={form.package} onChange={e => update('package', e.target.value)}><option value="">Ayúdame a elegir</option>{packages.map(p => <option key={p.name}>{p.name}</option>)}</select></label>
     </div>
     <label>Cuéntanos un poco más <textarea rows={3} value={form.details} onChange={e => update('details', e.target.value)} placeholder="Horario, bebidas favoritas, alguna idea especial…" /></label>
-    <button className="button button-dark form-submit" type="submit">{whatsapp ? 'Preparar mensaje en WhatsApp' : 'Copiar solicitud'} <ArrowUpRight size={18} /></button>
+    <button className="button button-dark form-submit" type="submit">{whatsapp ? 'Enviar por WhatsApp' : 'Copiar solicitud'} <ArrowUpRight size={18} /></button>
     <p className="form-note">{whatsapp ? 'Se abrirá WhatsApp con tus datos. La solicitud se envía cuando confirmes el mensaje.' : 'Puedes copiar los detalles de tu evento para compartirlos. Este formulario no envía la solicitud automáticamente.'}</p>
     {status && <p className="form-status" role="status">{status}</p>}
     {manualMessage && <label>Tu solicitud lista para copiar<textarea readOnly rows={10} value={manualMessage} onFocus={e => e.currentTarget.select()} /></label>}
