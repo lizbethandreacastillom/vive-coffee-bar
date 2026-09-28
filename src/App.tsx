@@ -23,6 +23,30 @@ const packages = [
 type FormData = { name: string; event: string; date: string; guests: string; city: string; package: string; details: string };
 const initial: FormData = { name: '', event: '', date: '', guests: '', city: '', package: '', details: '' };
 
+function EmailContact() {
+  const email = 'vivecoffeebar@gmail.com';
+  const [status, setStatus] = useState('');
+  const [manualCopy, setManualCopy] = useState(false);
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setManualCopy(false);
+      setStatus('Correo copiado. Pégalo en tu servicio de correo.');
+    } catch {
+      setManualCopy(true);
+      setStatus('Selecciona la dirección de abajo para copiarla.');
+    }
+  };
+  return <div className="email-contact">
+    <a className="contact-email" href={gmailUrl} target="_blank" rel="noopener noreferrer" aria-label="Escribir a vivecoffeebar@gmail.com en Gmail"><Mail size={18}/><span>{email}</span></a>
+    <div className="email-actions"><a href={gmailUrl} target="_blank" rel="noopener noreferrer">Abrir Gmail <ArrowUpRight size={14}/></a><button type="button" onClick={copyEmail}>Copiar correo</button></div>
+    <span className="email-hint">Gmail puede pedirte iniciar sesión.</span>
+    {status && <span className="email-status" role="status">{status}</span>}
+    {manualCopy && <input className="email-copy-field" aria-label="Dirección de correo para copiar" readOnly value={email} onFocus={event => event.currentTarget.select()}/>}
+  </div>;
+}
+
 function DecorativeStar() {
   return <svg className="decorative-star" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" focusable="false"><path d="M16 1v30M1 16h30M5.4 5.4l21.2 21.2M5.4 26.6L26.6 5.4"/></svg>;
 }
@@ -157,7 +181,7 @@ export default function App() {
       <section className="quote" id="cotizar"><div className="quote-inner"><div className="quote-copy"><span className="eyebrow">05 — HAGAMOS ALGO ESPECIAL</span><h2>Tu evento merece<br/><em>un gran café.</em></h2><p>Compártenos los detalles y preparemos una propuesta para tu celebración.</p><div className="quote-symbol"><DecorativeStar/></div><span className="quote-caption">VIVE COFFEE BAR · CAFÉ PARA EVENTOS</span></div><div className="quote-panel"><h3>Cuéntanos de tu evento</h3><p>Empecemos por lo esencial.</p><QuoteForm/></div></div></section>
       <section className="faq section-shell"><SectionHeading eyebrow="ANTES DE BRINDAR CON CAFÉ" title="Preguntas frecuentes."/><div className="faq-list"><details><summary>¿Con cuánto tiempo debo reservar?<ChevronDown size={18}/></summary><p>Escríbenos en cuanto tengas la fecha. Confirmaremos disponibilidad al preparar tu propuesta.</p></details><details><summary>¿Pueden adaptar las bebidas al evento?<ChevronDown size={18}/></summary><p>Sí. Cuéntanos tus preferencias y consideraremos las opciones al cotizar.</p></details><details><summary>¿Qué necesitan para instalar la barra?<ChevronDown size={18}/></summary><p>Un espacio adecuado y acceso a corriente eléctrica. Revisaremos juntos los detalles de montaje antes del evento.</p></details></div></section>
     </main>
-    <footer className="footer"><div className="footer-top"><div><a className="footer-mark" href="#inicio" aria-label="Vive Coffee Bar, volver al inicio"><img src="/images/logo-vive.png" alt="" /></a><p>El café también puede ser<br/>parte del momento.</p></div><div className="footer-links"><a href="#experiencia">La experiencia</a><a href="#eventos">Eventos</a><a href="#paquetes">Paquetes</a><a href="#carajillos">Carajillos</a><a href="#cotizar">Cotizar</a></div><div className="footer-contact"><span>EMPECEMOS A PLANEAR</span><a href="#cotizar">Hablemos de tu evento <ArrowUpRight size={18}/></a>{instagram && <a className="instagram" href={instagram} target="_blank" rel="noopener noreferrer"><Instagram size={18}/> @vive.coffeebarqro</a>}<a className="contact-email" href="mailto:vivecoffeebar@gmail.com"><Mail size={18}/> vivecoffeebar@gmail.com</a></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Vive Coffee Bar</span><span>Hecho para los momentos que importan <Coffee size={14}/></span><a href="#inicio">Volver arriba ↑</a></div></footer>
+    <footer className="footer"><div className="footer-top"><div><a className="footer-mark" href="#inicio" aria-label="Vive Coffee Bar, volver al inicio"><img src="/images/logo-vive.png" alt="" /></a><p>El café también puede ser<br/>parte del momento.</p></div><div className="footer-links"><a href="#experiencia">La experiencia</a><a href="#eventos">Eventos</a><a href="#paquetes">Paquetes</a><a href="#carajillos">Carajillos</a><a href="#cotizar">Cotizar</a></div><div className="footer-contact"><span>EMPECEMOS A PLANEAR</span><a href="#cotizar">Hablemos de tu evento <ArrowUpRight size={18}/></a>{instagram && <a className="instagram" href={instagram} target="_blank" rel="noopener noreferrer"><Instagram size={18}/> @vive.coffeebarqro</a>}<EmailContact/></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Vive Coffee Bar</span><span>Hecho para los momentos que importan <Coffee size={14}/></span><a href="#inicio">Volver arriba ↑</a></div></footer>
     {lightbox !== null && <dialog ref={lightboxRef} className="lightbox" aria-label="Fotografía ampliada" onCancel={() => setLightbox(null)} onClick={e => { if (e.target === e.currentTarget) setLightbox(null); }}><button className="lightbox-close" type="button" onClick={() => setLightbox(null)} aria-label="Cerrar fotografía"><X/></button><img src={photos[lightbox].src} alt={photos[lightbox].alt} onClick={e => e.stopPropagation()}/><span>{photos[lightbox].label}</span></dialog>}
   </>;
 }
